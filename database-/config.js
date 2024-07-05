@@ -9,7 +9,7 @@ const configs = {
   // 打印错误
   log: {
     error(message) {
-      console.log('[error]', message);
+      console.log('[error-]', message);
     },
   },
 };
