@@ -22,12 +22,15 @@ router.use(function (req, res, next) {
 /* GET home page. */
 router.post('/', function (req, res, next) {
   // res.render('index', { title: 'Express' });
-  // res.send(JSON.stringify(req.body));
-  db.query('SELECT * FROM pv', function (err, rows) {
-    console.log('rowssss', rows);
+  var reqBody = req.body || '{}';
+  reqBody = JSON.parse(reqBody);
+
+  var time = new Date().toLocaleString();
+  db.queryArgs('INSERT INTO pv (user, ua, href,time) VALUES (?,?,?,?);', [reqBody.email, reqBody.ua, reqBody.path, time], function (err, rows) {
     // 以json的形式返回
-    res.json({ rows });
+    // res.json({ rows });
   });
+  res.send(JSON.stringify(req.body));
 });
 
 module.exports = router;
